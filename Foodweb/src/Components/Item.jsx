@@ -1,8 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Item({item, des ,img, price, time}) {
   return (
-    <div className='item_container'>
+    <Link to='/done'><div className='item_container'>
       <img src={img} alt="" />
       <h1>{item}</h1>
       <h2>{des}</h2>
@@ -21,6 +22,7 @@ function Item({item, des ,img, price, time}) {
         </div>
 </section>
     </div>
+    </Link>
   )
 }
 

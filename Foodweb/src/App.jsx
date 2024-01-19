@@ -10,6 +10,7 @@ import { LoginContextProvider } from './Context/LoginContext'
 import Layout from './Layout'
 import Login from './Pages/Login'
 import SignUp from './Pages/SignUp'
+import ProductDesc from './Pages/ProductDesc'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path='' element={<FrontPage/>}/>
           <Route path='SignIn' element={<Login/>}/>
           <Route path='SignUp' element={<SignUp/>}/> 
+          <Route path='done' element={<ProductDesc/>}/>
         </Route>
       </Routes>
     </LoginContextProvider>
