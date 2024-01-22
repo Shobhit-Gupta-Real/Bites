@@ -127,8 +127,9 @@ line-height: normal;
   flex-direction: row;
   gap: 1.5rem;
 }
-.delivery input{
+.delivery input, .profile_edit input{
   width: 23rem;
+  
   display: flex;
   flex-direction: row;
   border-radius: 10px;
@@ -136,14 +137,13 @@ line-height: normal;
   padding: 7px 12px; 
   border: 1px solid black;
 }
-.delivery input:focus{
+.delivery input:focus, .profile_edit input:focus{
   outline: none;
 }
 .footer{
   color: white;
   background-color: #FC8019;
   margin-top: auto;
-  
   height: 30vh;
   width: 100%;
   display: flex;
@@ -301,11 +301,21 @@ text-transform: lowercase;
 .banner h1, h2{
   background: none;
 }
+.product_details{
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+.product_recommend, .product_recommend ul{
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
 .offers svg,.value svg{
   display: inline-flex;
   background: none;
 }
-.details{
+.details, .main_details{
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -356,4 +366,90 @@ line-height: normal;
 .ordering{
   display: flex;
   gap: 2.5rem;
+}
+.cart{
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  margin: 5rem 0;
+  width:max-content;
+}
+.cart section{
+  display: flex;
+  justify-content: space-between;
+}
+.cart section, .cart h1, .cart p{
+  background: none;
+}
+.cart_btn{
+display: flex;
+width: 18.8125rem;
+padding: 0.9375rem 1.5625rem;
+justify-content: center;
+align-items: center;
+gap: 0.625rem;
+border-radius: 0.625rem;
+background: #FC8019;  
+}
+.product_content{
+  display: flex;
+  gap: 3rem;
+  justify-content: space-around;
+  margin: 2rem 8rem;
+}
+.product_content main{
+  display: flex;
+  gap: 1rem;
+}
+.main_details h1{
+  color: #202020;
+font-family: Poppins;
+font-size: 1.25rem;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+}
+.main_details h2{
+  color: #000;
+font-family: Inter;
+font-size: 1rem;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+}
+.main_details p{
+  color: #808080;
+font-family: Inter;
+font-size: 1rem;
+font-style: normal;
+font-weight: 400;
+line-height: 1.375rem; /* 137.5% */
+}
+.add_item button{
+  display: inline-flex;
+padding: 0.9375rem 1.5625rem;
+justify-content: center;
+align-items: center;
+gap: 0.625rem;
+border-radius: 0.625rem;
+background: #FFF;
+box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.10);
+position: absolute;
+right: 32rem;
+top: 40rem;
+}
+.profile_page{
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  align-items: center;
+}
+.profile_edit{
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.profile_edit svg{
+  width: 100px;
+  height: 100px;
 }

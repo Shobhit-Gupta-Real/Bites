@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Cart from '../Components/Cart'
 
 function ProductDesc() {
     const [search, setSearch] = useState('')
@@ -57,6 +58,31 @@ function ProductDesc() {
 </svg>
                 </button>
             </div>
+        <div className="product_content">
+          <div className="product_recommend">
+            <h1 style={{color:"#FC8019", fontSize:"1.5rem"}}>Recommended</h1>
+            <ul>
+              <li/> Breakfast Box
+              <li> Lunch Box</li>
+            </ul>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="500" viewBox="0 0 2 500" fill="none">
+          <path d="M1 0V500" stroke="#202020"/>
+          </svg> 
+          <main>
+            <div className="main_details">
+            <h1>Brunch for 2 - Veg (Save upto Rs.45)</h1>
+            <h2>₹599</h2>
+            <p>Brunch: One meal to rule them all! Grab this mega saver combo with your choice of 2 veg wraps, Aloo Paratha (2 pcs),
+               chole and Curd lunchbox and 2 choco lava cakes. This is just bliss on a plate!</p>
+            </div>
+            <div className="add_item">
+              <img src="food.png" alt="" />
+              <button>Add +</button>
+            </div>
+          </main>
+          <Cart/>       
+    </div>
     </div>
   )
 }
