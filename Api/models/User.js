@@ -9,8 +9,10 @@ const UserSchema = new Schema({
     },
     password:{
         type: String,
-        required: true
-    }
+        required: true,
+    },
+    cover: String
+    
 })
 
 const UserModel = model('user',UserSchema)

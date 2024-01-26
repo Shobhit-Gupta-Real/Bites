@@ -9,20 +9,30 @@ const bcrypt = require('bcryptjs')
 const salt = bcrypt.genSaltSync(10)
 const jwt = require('jsonwebtoken')
 const secret = 'asdfjkjlj3453' //secret code for jsonwebtoken
+const multer = require('multer')
+const upload = multer({dest: 'uploads/'})
+const fs = require('fs')
+const {isAbsolute} = require('path')
 
-
+app.use('/uploads', express.static(__dirname+'/uploads'))
 app.use(cors({credentials:true, origin:'http://localhost:5173'}))
 app.use(express.json())
 app.use(cookieParser())
 
 mongoose.connect('mongodb+srv://Bites:Ywnj6mZwmmP4ATkk@atlascluster.ulzw8dq.mongodb.net/?retryWrites=true&w=majority')
 
-app.post('/signup', async(req,res)=>{
-   const {username, password} = req.body
+app.post('/signup', upload.single('file'), async(req,res)=>{
+    const {originalname, path} = req.file
+    const parts = originalname.split('.')
+    const ext = parts[parts.length -1]
+    fs.renameSync(path, path+'.'+ext)
+
+   const {username, password, dp} = req.body
    try{
    const userDoc = await UserModel.create({
     username,
-    password: bcrypt.hashSync(password, salt)
+    password: bcrypt.hashSync(password, salt),
+    cover: path+'.'+ext,
    })
    res.json(userDoc)
 }catch(e){
@@ -57,9 +67,33 @@ app.get('/profile', (req,res)=>{
     })
     res.json(req.cookies)
 })
+app.get('/:id', async(req,res)=>{
+    const {id} = req.params
+    const postDoc = await UserModel.findById(id)
+    res.json(postDoc)
+})
+
 
 app.post('/logout',(req,res)=>{
     res.cookie('token','').json('ok')
+})
+
+app.post('/dp', upload.single('file'), async(req,res)=>{
+    const {originalname, path} = req.file
+    const parts = originalname.split('.')
+    const ext = parts[parts.length -1]
+    fs.renameSync(path, path+'.'+ext)
+
+    const {token} = req.cookies
+    jwt.verify(token, secret, {}, async(err, info)=>{
+        if(err) throw err
+        const {dp, username} = req.body
+        const postDoc = await UserModel.create({
+            username,
+            cover: path+'.'+ext,
+        })
+        res.json({postDoc})
+    })
 })
 
 app.listen(4000, ()=>{
