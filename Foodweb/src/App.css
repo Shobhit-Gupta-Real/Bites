@@ -458,6 +458,13 @@ top: 40rem;
   background-color: #fc7f195a;
   align-self: center;
 }
+.profile_edit img{
+  width: 100px;
+  height: 100px;
+  display: block;
+  border-radius: 50%;
+  align-self: center;
+}
 #edit_profile_image{
   width: 100px;
   height: 100px;
