@@ -13,6 +13,7 @@ const multer = require('multer')
 const upload = multer({dest: 'uploads/'})
 const fs = require('fs')
 const {isAbsolute} = require('path')
+const RestModel = require('./models/Restaurant')
 
 app.use('/uploads', express.static(__dirname+'/uploads'))
 app.use(cors({credentials:true, origin:'http://localhost:5173'}))
@@ -27,7 +28,7 @@ app.post('/signup', upload.single('file'), async(req,res)=>{
     const ext = parts[parts.length -1]
     fs.renameSync(path, path+'.'+ext)
 
-   const {username, password, dp} = req.body
+   const {username, password} = req.body
    try{
    const userDoc = await UserModel.create({
     username,
@@ -76,6 +77,27 @@ app.get('/:id', async(req,res)=>{
 
 app.post('/logout',(req,res)=>{
     res.cookie('token','').json('ok')
+})
+
+app.post('/addrestu', upload.single('image'), async(req,res)=>{ //here the file is used as there in the Restadd file we have given the dp[0] to file index
+    const {originalname, path} = req.file
+    const parts = originalname.split('.')
+    const ext = parts[parts.length -1]
+    fs.renameSync(path, path+'.'+ext)
+
+   const {rest, variety, address, contact} = req.body
+   try{
+   const restDoc = await RestModel.create({
+    rest,
+    variety,
+    address, 
+    contact,
+    image: path+'.'+ext
+   })
+   res.json(restDoc)
+}catch(e){
+    res.status(400).json(e)
+}
 })
 
 app.post('/dp', upload.single('file'), async(req,res)=>{

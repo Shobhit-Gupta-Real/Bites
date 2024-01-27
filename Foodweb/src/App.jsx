@@ -13,6 +13,8 @@ import Login from './Pages/Login'
 import SignUp from './Pages/SignUp'
 import ProductDesc from './Pages/ProductDesc'
 import Profile from './Pages/Profile'
+import Foodadd from './Seed/Restadd'
+import Restadd from './Seed/Restadd'
 
 function App() {
   return (
@@ -26,6 +28,7 @@ function App() {
           <Route path='SignUp' element={<SignUp/>}/> 
           <Route path='profile' element={<Profile/>}/>
           <Route path='done' element={<ProductDesc/>}/>
+          <Route path='/addrest' element={<Restadd/>}/>
         </Route>
       </Routes>
     </LoginContextProvider>
