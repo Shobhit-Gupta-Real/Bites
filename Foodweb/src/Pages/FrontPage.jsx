@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Background from '../Components/Background'
 import Recommend from '../Components/Recommend'
 import { useLoginContext } from '../Context/LoginContext'
+import NearRest from '../Components/NearRest'
 
 function FrontPage() {
   const {login, setLogin} = useLoginContext()
@@ -31,6 +32,7 @@ function FrontPage() {
     </div>
     <Background/>
     <Recommend/>
+    <NearRest/>
     </>
   )
 }

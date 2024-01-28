@@ -15,6 +15,8 @@ import ProductDesc from './Pages/ProductDesc'
 import Profile from './Pages/Profile'
 import Foodadd from './Seed/Restadd'
 import Restadd from './Seed/Restadd'
+import Restaurant from './Components/Restaurant'
+import NearRest from './Components/NearRest'
 
 function App() {
   return (
@@ -29,6 +31,7 @@ function App() {
           <Route path='profile' element={<Profile/>}/>
           <Route path='done' element={<ProductDesc/>}/>
           <Route path='/addrest' element={<Restadd/>}/>
+          <Route path='/doner' element={<NearRest/>}/>
         </Route>
       </Routes>
     </LoginContextProvider>

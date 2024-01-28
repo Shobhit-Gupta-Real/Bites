@@ -68,6 +68,11 @@ app.get('/profile', (req,res)=>{
     })
     res.json(req.cookies)
 })
+app.get('/rest', async (req,res) =>{
+    const postDoc = await RestModel.find()
+    res.json(postDoc)
+})
+
 app.get('/:id', async(req,res)=>{
     const {id} = req.params
     const postDoc = await UserModel.findById(id)
