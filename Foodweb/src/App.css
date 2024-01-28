@@ -251,14 +251,17 @@ text-transform: lowercase;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   margin: 1rem;
-  gap: 2rem;
+  gap: 3rem;
 }
 .recommend_box{
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin: 5rem;
+  margin: 2rem;
+  gap: 2rem;
 }
 .recommend_box h1{
   font-size: larger;
