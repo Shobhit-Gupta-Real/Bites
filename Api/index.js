@@ -10,10 +10,12 @@ const salt = bcrypt.genSaltSync(10)
 const jwt = require('jsonwebtoken')
 const secret = 'asdfjkjlj3453' //secret code for jsonwebtoken
 const multer = require('multer')
-const upload = multer({dest: 'uploads/'})
+const {storage} = require('./cloudinary/index')
+const upload = multer({storage})
 const fs = require('fs')
 const {isAbsolute} = require('path')
 const RestModel = require('./models/Restaurant')
+require('dotenv').config()
 
 app.use('/uploads', express.static(__dirname+'/uploads'))
 app.use(cors({credentials:true, origin:'http://localhost:5173'}))
@@ -23,19 +25,16 @@ app.use(cookieParser())
 mongoose.connect('mongodb+srv://Bites:Ywnj6mZwmmP4ATkk@atlascluster.ulzw8dq.mongodb.net/?retryWrites=true&w=majority')
 
 app.post('/signup', upload.single('file'), async(req,res)=>{
-    const {originalname, path} = req.file
-    const parts = originalname.split('.')
-    const ext = parts[parts.length -1]
-    fs.renameSync(path, path+'.'+ext)
-
-   const {username, password} = req.body
+  const {username, password} = req.body
+  const uploadimg = req.file
+  const image = {url: uploadimg.path, filename: uploadimg.filename}
    try{
    const userDoc = await UserModel.create({
     username,
     password: bcrypt.hashSync(password, salt),
-    cover: path+'.'+ext,
+    cover: image
    })
-   res.json(userDoc)
+   res.send(userDoc)
 }catch(e){
     res.status(400).json(e)
 }

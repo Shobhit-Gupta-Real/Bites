@@ -11,8 +11,10 @@ const UserSchema = new Schema({
         type: String,
         required: true,
     },
-    cover: String
-    
+    cover: {
+        url: String,
+        filename: String
+    }
 })
 
 const UserModel = model('user',UserSchema)
