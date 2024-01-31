@@ -24,15 +24,18 @@ function SignUp() {
       body: data,
       credentials: 'include'
     })
-    if(response.status === 200){
+    if(response.ok){
+      response.json().then(userInfo=>{
+        setUserInfo(userInfo)
         setRedirect(true)
-        alert('Signed Up!')
+        alert('Signed up!')
+      })
     }else{
       alert('Registration failed!')
     }
     }
     if(redirect){
-      return <Navigate to={'/SignIn'}/>
+      return <Navigate to={'/'}/>
     }
     
   return (
