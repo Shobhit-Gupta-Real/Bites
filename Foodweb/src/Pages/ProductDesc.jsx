@@ -1,15 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Cart from '../Components/Cart'
+import { useParams } from 'react-router-dom'
 
 function ProductDesc() {
-    const [search, setSearch] = useState('')
+  const [info, setInfo] = useState({})
+  const {id} = useParams()
+  useEffect(()=>{
+   window.scrollTo(0, 0); //to bydefault open the top view of the page
+   fetch(`http://localhost:4000/rest/${id}`,{
+    credentials: 'include'
+   })
+    .then(response =>{
+        response.json().then(postInfo =>{
+            setInfo(postInfo)
+        })
+    })
+},[])
+
+  const [search, setSearch] = useState('')
   return (
     <div className='product_details'>
         <div className="banner">
-            <img src="food (1).png" alt="" />
+        {info.image && (
+          <img src={`http://localhost:4000/${info.image}`} alt="" />
+        )}
                 <section className='details'>
-                    <h1>LunchBox - Meals and Thalis</h1>
-                    <h2>north indian, punjabi</h2>
+                    <h1>{info.rest}</h1>
+                    <h2>{info.variety}</h2>
                     <div className="ordering">
                         <section className='value'>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="#1AC84B" viewBox="0 0 24 24" stroke-width="1.5" stroke="#1AC84B" class="w-6 h-6">
@@ -17,17 +34,13 @@ function ProductDesc() {
                     </svg>4.0
                     <h4>100+ ratings</h4>
                         </section>
-                        <img src="line.svg" alt="" />
+                        <img src="/line.svg" alt="" />
                         <section className='value'>
-                            <h4>30Mins</h4>
-                            <h4>Delivery Time</h4>
+                            <h4>{info.address}</h4>
                         </section>
-                        <img src='line.svg' alt=''/>
+                        <img src='/line.svg' alt=''/>
                         <div className="value">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FC8019" class="w-6 h-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M15 8.25H9m6 3H9m3 6-3-3h1.5a3 3 0 1 0 0-6M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-</svg>200
-<h4>Cost for two</h4>
+                        <h4>+91-{info.contact}</h4>
                         </div>
 
                     </div>
@@ -77,7 +90,7 @@ function ProductDesc() {
                chole and Curd lunchbox and 2 choco lava cakes. This is just bliss on a plate!</p>
             </div>
             <div className="add_item">
-              <img src="food.png" alt="" />
+              <img src='/food.png' />
               <button>Add +</button>
             </div>
           </main>

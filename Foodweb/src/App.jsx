@@ -29,7 +29,7 @@ function App() {
           <Route path='SignIn' element={<Login/>}/>
           <Route path='SignUp' element={<SignUp/>}/> 
           <Route path='profile' element={<Profile/>}/>
-          <Route path='done' element={<ProductDesc/>}/>
+          <Route path='rest/:id' element={<ProductDesc/>}/>
           <Route path='/addrest' element={<Restadd/>}/>
           <Route path='/doner' element={<NearRest/>}/>
         </Route>

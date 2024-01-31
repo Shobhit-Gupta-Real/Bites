@@ -24,6 +24,12 @@ app.use(cookieParser())
 
 mongoose.connect('mongodb+srv://Bites:Ywnj6mZwmmP4ATkk@atlascluster.ulzw8dq.mongodb.net/?retryWrites=true&w=majority')
 
+
+app.get('/rest/:id', async(req,res)=>{
+    const {id} = req.params
+    const restDoc = await RestModel.findById(id)
+    res.json(restDoc)
+})
 app.post('/signup', upload.single('file'), async(req,res)=>{
   const {username, password} = req.body
   const uploadimg = req.file
@@ -77,6 +83,7 @@ app.get('/:id', async(req,res)=>{
     const postDoc = await UserModel.findById(id)
     res.json(postDoc)
 })
+
 
 
 app.post('/logout',(req,res)=>{

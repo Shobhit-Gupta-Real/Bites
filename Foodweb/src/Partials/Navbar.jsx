@@ -53,7 +53,7 @@ function Navbar() {
   return (
     <div className='navbar'>
         <div className='logo'>
-        <img src="./Subtract.png" alt="" />
+        <img src="../Subtract.png" alt="" />
         <Link to='/'>
         <h1 className='heading'>Bites</h1>
         </Link>
