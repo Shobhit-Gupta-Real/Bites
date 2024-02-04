@@ -24,6 +24,33 @@ app.use(cookieParser())
 
 mongoose.connect('mongodb+srv://Bites:Ywnj6mZwmmP4ATkk@atlascluster.ulzw8dq.mongodb.net/?retryWrites=true&w=majority')
 
+app.post('/update/:id', async(req,res)=>{
+    const {token} = req.cookies
+    const {username} = req.body
+    const {id} = req.params
+    // const uploadimg = req.file
+    // const image = {url: uploadimg.path, filename: uploadimg.filename}
+    jwt.verify(token, secret, {}, async(err, info)=>{
+        if(err) throw err
+        console.log(req.body)
+        const postDoc = await UserModel.findByIdAndUpdate({_id: id}, {
+            username,
+            // cover: image
+        },
+        {new: true})
+    })
+    req.cookies.token = ""
+    jwt.sign({username, id:id},
+        secret,
+        {},
+        (err, token)=>{
+            if(err) throw err;
+            res.cookie('token', token).json({
+                id:id,
+                username,
+            })
+        })
+})
 
 app.get('/rest/:id', async(req,res)=>{
     const {id} = req.params
@@ -87,13 +114,6 @@ app.get('/rest', async (req,res) =>{
     res.json(postDoc)
 })
 
-app.get('/:id', async(req,res)=>{
-    const {id} = req.params
-    const postDoc = await UserModel.findById(id)
-    res.json(postDoc)
-})
-
-
 
 app.post('/logout',(req,res)=>{
     res.cookie('token','').json('ok')
@@ -120,22 +140,11 @@ app.post('/addrestu', upload.single('image'), async(req,res)=>{ //here the file 
 }
 })
 
-app.post('/dp', upload.single('file'), async(req,res)=>{
-    const {originalname, path} = req.file
-    const parts = originalname.split('.')
-    const ext = parts[parts.length -1]
-    fs.renameSync(path, path+'.'+ext)
 
-    const {token} = req.cookies
-    jwt.verify(token, secret, {}, async(err, info)=>{
-        if(err) throw err
-        const {dp, username} = req.body
-        const postDoc = await UserModel.create({
-            username,
-            cover: path+'.'+ext,
-        })
-        res.json({postDoc})
-    })
+app.get('/:id', async(req,res)=>{
+    const {id} = req.params
+    const postDoc = await UserModel.findById(id)
+    res.json(postDoc)
 })
 
 app.listen(4000, ()=>{
