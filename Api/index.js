@@ -16,6 +16,8 @@ const fs = require('fs')
 const {isAbsolute} = require('path')
 const RestModel = require('./models/Restaurant')
 require('dotenv').config()
+const {tokencheck} = require('./middleware')
+const {tokensign} = require('./functions')
 
 app.use('/uploads', express.static(__dirname+'/uploads'))
 app.use(cors({credentials:true, origin:'http://localhost:5173'}))
@@ -24,32 +26,18 @@ app.use(cookieParser())
 
 mongoose.connect('mongodb+srv://Bites:Ywnj6mZwmmP4ATkk@atlascluster.ulzw8dq.mongodb.net/?retryWrites=true&w=majority')
 
-app.post('/update/:id', async(req,res)=>{
-    const {token} = req.cookies
+app.post('/update/:id', tokencheck, async(req,res)=>{
     const {username} = req.body
     const {id} = req.params
     // const uploadimg = req.file
-    // const image = {url: uploadimg.path, filename: uploadimg.filename}
-    jwt.verify(token, secret, {}, async(err, info)=>{
-        if(err) throw err
-        console.log(req.body)
+    // const image = {url: uploadimg.path, filename: uploadimg.filename} 
         const postDoc = await UserModel.findByIdAndUpdate({_id: id}, {
             username,
             // cover: image
         },
         {new: true})
-    })
     req.cookies.token = ""
-    jwt.sign({username, id:id},
-        secret,
-        {},
-        (err, token)=>{
-            if(err) throw err;
-            res.cookie('token', token).json({
-                id:id,
-                username,
-            })
-        })
+    tokensign(username, id, req, res);
 })
 
 app.get('/rest/:id', async(req,res)=>{
@@ -67,16 +55,7 @@ app.post('/signup', upload.single('file'), async(req,res)=>{
     password: bcrypt.hashSync(password, salt),
     cover: image
    })
-   jwt.sign({username, id:userDoc._id},
-    secret,
-    {},
-    (err, token)=>{
-    if(err) throw err;
-    res.cookie('token', token).json({
-        id: userDoc._id,
-        username,
-        })
-    })
+   tokensign(username, userDoc._id, req, res);
 }catch(e){
     res.status(400).json(e)
 }
@@ -87,16 +66,7 @@ app.post('/signin', async(req,res)=>{
     const userDoc = await UserModel.findOne({username})
     const passOk = bcrypt.compareSync(password, userDoc.password)
     if(passOk){
-        jwt.sign({username, id:userDoc._id},
-            secret,
-            {},
-            (err, token)=>{
-            if(err) throw err;
-            res.cookie('token', token).json({
-                id: userDoc._id,
-                username,
-            })
-        })
+        tokensign(username, userDoc._id, req, res);
     }else{
         res.status(400).json('Wrong credentials')
     }
