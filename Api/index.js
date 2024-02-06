@@ -18,6 +18,7 @@ const RestModel = require('./models/Restaurant')
 require('dotenv').config()
 const {tokencheck} = require('./middleware')
 const {tokensign} = require('./functions')
+const {userValid} = require('./validation')
 
 app.use('/uploads', express.static(__dirname+'/uploads'))
 app.use(cors({credentials:true, origin:'http://localhost:5173'}))
@@ -61,7 +62,7 @@ app.post('/signup', upload.single('file'), async(req,res)=>{
 }
 })
 
-app.post('/signin', async(req,res)=>{
+app.post('/signin', userValid ,async(req,res)=>{
     const {username, password} = req.body
     const userDoc = await UserModel.findOne({username})
     const passOk = bcrypt.compareSync(password, userDoc.password)
@@ -115,6 +116,10 @@ app.get('/:id', async(req,res)=>{
     const {id} = req.params
     const postDoc = await UserModel.findById(id)
     res.json(postDoc)
+})
+
+app.use((error, req, res, next)=>{
+    res.status(500).send('An error has occurred.')
 })
 
 app.listen(4000, ()=>{
