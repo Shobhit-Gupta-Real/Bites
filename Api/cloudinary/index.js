@@ -8,10 +8,18 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_CLOUD_SECRET,
 })
 
-module.exports.storage = new CloudinaryStorage({
+module.exports.userStorage = new CloudinaryStorage({
     cloudinary,
     params:{
         folder: 'UserProfile',
+        allowedFormats: ['jpeg', 'png', 'jpg']
+    }
+})
+
+module.exports.foodItemStorage = new CloudinaryStorage({
+    cloudinary,
+    params:{
+        folder: 'FoodItems',
         allowedFormats: ['jpeg', 'png', 'jpg']
     }
 })

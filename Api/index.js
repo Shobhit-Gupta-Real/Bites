@@ -10,8 +10,9 @@ const salt = bcrypt.genSaltSync(10)
 const jwt = require('jsonwebtoken')
 const secret = 'asdfjkjlj3453' //secret code for jsonwebtoken
 const multer = require('multer')
-const {storage} = require('./cloudinary/index')
-const upload = multer({storage})
+const {userStorage, foodItemStorage} = require('./cloudinary/index')
+const userUpload = multer({storage: userStorage})
+const foodUpload = multer({storage: foodItemStorage})
 const fs = require('fs')
 const {isAbsolute} = require('path')
 const RestModel = require('./models/Restaurant')
@@ -19,6 +20,7 @@ require('dotenv').config()
 const {tokencheck} = require('./middleware')
 const {tokensign} = require('./functions')
 const {userValid} = require('./validation')
+const FoodModel = require('./models/Food_item')
 
 app.use('/uploads', express.static(__dirname+'/uploads'))
 app.use(cors({credentials:true, origin:'http://localhost:5173'}))
@@ -46,7 +48,20 @@ app.get('/rest/:id', async(req,res)=>{
     const restDoc = await RestModel.findById(id)
     res.json(restDoc)
 })
-app.post('/signup', upload.single('file'), async(req,res)=>{
+app.post('/doner/:id', foodUpload.single('image'), async(req,res)=>{
+    const {id} = req.params
+    const uploadimg = req.file
+    const {food, desc, price} = req.body
+    const image = {url: uploadimg.path, filename: uploadimg.filename}
+    const restDoc = await RestModel.findById(id)
+    const foodDoc = await FoodModel.create({
+        name:food,
+        image:image, description: desc, price,
+        restaurant: id
+    })
+    res.json(foodDoc)
+})
+app.post('/signup', userUpload.single('file'), async(req,res)=>{
   const {username, password} = req.body
   const uploadimg = req.file
   const image = {url: uploadimg.path, filename: uploadimg.filename}
@@ -90,7 +105,7 @@ app.post('/logout',(req,res)=>{
     res.cookie('token','').json('ok')
 })
 
-app.post('/addrestu', upload.single('image'), async(req,res)=>{ //here the file is used as there in the Restadd file we have given the dp[0] to file index
+app.post('/addrestu', userUpload.single('image'), async(req,res)=>{ //here the file is used as there in the Restadd file we have given the dp[0] to file index
     const {originalname, path} = req.file
     const parts = originalname.split('.')
     const ext = parts[parts.length -1]

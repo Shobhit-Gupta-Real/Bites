@@ -12,6 +12,8 @@ module.exports.userValid = (req,res,next)=>{
         password
     }
     const response = user.safeParse(data)
-    if(!response.success){res.status(411).json({msg: 'Wrong input'})}
+    if(!response.success){
+    res.status(411).json({msg: 'Wrong input'})
+    return}
     next();
 }

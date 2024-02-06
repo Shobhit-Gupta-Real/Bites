@@ -17,6 +17,8 @@ import Foodadd from './Seed/Restadd'
 import Restadd from './Seed/Restadd'
 import Restaurant from './Components/Restaurant'
 import NearRest from './Components/NearRest'
+import AddFood from './Pages/AddFood'
+import Rest from './Pages/Rest'
 
 function App() {
   return (
@@ -27,11 +29,14 @@ function App() {
         <Route path='/' element={<Layout/>}>
           <Route path='' element={<FrontPage/>}/>
           <Route path='SignIn' element={<Login/>}/>
-          <Route path='SignUp' element={<SignUp/>}/> 
+          <Route path='SignUp' element={<SignUp/>}/>
           <Route path='profile' element={<Profile/>}/>
           <Route path='rest/:id' element={<ProductDesc/>}/>
           <Route path='/addrest' element={<Restadd/>}/>
-          <Route path='/doner' element={<NearRest/>}/>
+        </Route>
+        <Route path='doner' element={<Layout/>}>
+            <Route path='' element={<Rest/>}/>
+            <Route path=':id' element={<AddFood/>}/>
         </Route>
       </Routes>
     </LoginContextProvider>
