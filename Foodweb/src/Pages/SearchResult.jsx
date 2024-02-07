@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Item from '../Components/Item'
 import Restaurant from '../Components/Restaurant'
 
@@ -7,7 +7,6 @@ function SearchResult() {
     const [search, setSearch] = useState([])
     const [view, setView] = useState('food')
     const {item} = useParams()
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -51,7 +50,7 @@ function SearchResult() {
                 ) : (
                     search && search.length > 0 ? (
                         search.map(rest => (
-                            <Restaurant key={rest._id} {...rest} />
+                            <Link to={`/rest/${rest._id}`}><Restaurant key={rest._id} {...rest} /></Link>
                         ))
                     ) : (
                         <img className='notfound' src="../notfound.jpg" alt="" />
