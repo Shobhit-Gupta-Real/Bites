@@ -10,9 +10,10 @@ const salt = bcrypt.genSaltSync(10)
 const jwt = require('jsonwebtoken')
 const secret = 'asdfjkjlj3453' //secret code for jsonwebtoken
 const multer = require('multer')
-const {userStorage, foodItemStorage} = require('./cloudinary/index')
+const {userStorage, foodItemStorage, restStorage} = require('./cloudinary/index')
 const userUpload = multer({storage: userStorage})
 const foodUpload = multer({storage: foodItemStorage})
+const restUpload = multer({storage: restStorage})
 const fs = require('fs')
 const {isAbsolute} = require('path')
 const RestModel = require('./models/Restaurant')
@@ -45,7 +46,7 @@ app.post('/update/:id', tokencheck, async(req,res)=>{
 
 app.get('/rest/:id', async(req,res)=>{
     const {id} = req.params
-    const restDoc = await RestModel.findById(id)
+    const restDoc = await RestModel.findById(id).populate('menu')
     res.json(restDoc)
 })
 app.post('/doner/:id', foodUpload.single('image'), async(req,res)=>{
@@ -59,8 +60,15 @@ app.post('/doner/:id', foodUpload.single('image'), async(req,res)=>{
         image:image, description: desc, price,
         restaurant: id
     })
+    restDoc.menu.push(foodDoc)
+    await restDoc.save() //to make sure that  the pushed data is saved in the database of restaurant
     res.json(foodDoc)
 })
+app.get('/food', async(req,res)=>{
+    const foodDoc = await foodModel.find().populate('restaurant').limit(4)
+    res.json(foodDoc)
+})
+
 app.post('/signup', userUpload.single('file'), async(req,res)=>{
   const {username, password} = req.body
   const uploadimg = req.file
@@ -105,20 +113,16 @@ app.post('/logout',(req,res)=>{
     res.cookie('token','').json('ok')
 })
 
-app.post('/addrestu', userUpload.single('image'), async(req,res)=>{ //here the file is used as there in the Restadd file we have given the dp[0] to file index
-    const {originalname, path} = req.file
-    const parts = originalname.split('.')
-    const ext = parts[parts.length -1]
-    fs.renameSync(path, path+'.'+ext)
-
+app.post('/addrestu', restUpload.single('image'), async(req,res)=>{ //here the file is used as there in the Restadd file we have given the dp[0] to file index
    const {rest, variety, address, contact} = req.body
+   const image = {url: req.file.path, filename: req.file.filename}
    try{
    const restDoc = await RestModel.create({
     rest,
     variety,
     address, 
     contact,
-    image: path+'.'+ext
+    image,
    })
    res.json(restDoc)
 }catch(e){

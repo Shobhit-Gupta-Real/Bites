@@ -19,6 +19,7 @@ import Restaurant from './Components/Restaurant'
 import NearRest from './Components/NearRest'
 import AddFood from './Pages/AddFood'
 import Rest from './Pages/Rest'
+import Item from './Components/Item'
 
 function App() {
   return (

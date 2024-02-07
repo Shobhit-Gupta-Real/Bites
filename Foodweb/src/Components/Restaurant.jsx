@@ -3,7 +3,7 @@ import React from 'react'
 function Restaurant({_id ,image, rest, variety, contact}) {
   return (
     <div key={_id} className='rest_item'>
-        <img src={`http://localhost:4000/${image}`} alt="" />
+        <img src={image.url} alt="" />
         <div className="rest_desc">
             <div className="rest_head">
             <h1>{rest}</h1>

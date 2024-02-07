@@ -16,13 +16,13 @@ function ProductDesc() {
         })
     })
 },[])
-
+ 
   const [search, setSearch] = useState('')
   return (
     <div className='product_details'>
         <div className="banner">
         {info.image && (
-          <img src={`http://localhost:4000/${info.image}`} alt="" />
+          <img src={info.image.url} alt="" />
         )}
                 <section className='details'>
                     <h1>{info.rest}</h1>

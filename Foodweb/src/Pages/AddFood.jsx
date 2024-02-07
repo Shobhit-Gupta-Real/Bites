@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Cart from '../Components/Cart'
 import { useParams } from 'react-router-dom'
 import Foodadd from '../Seed/Foodadd'
+import Item from '../Components/Item'
+
 
 function AddFood() {
   const [info, setInfo] = useState({})
@@ -23,7 +25,7 @@ function AddFood() {
     <div className='product_details'>
         <div className="banner">
         {info.image && (
-          <img src={`http://localhost:4000/${info.image}`} alt="" />
+          <img src={info.image.url} alt="" />
         )}
                 <section className='details'>
                     <h1>{info.rest}</h1>
@@ -73,13 +75,9 @@ function AddFood() {
                 </button>
             </div>
         <div className="product_content">
-          <div className="product_recommend">
-            <h1 style={{color:"#FC8019", fontSize:"1.5rem"}}>Recommended</h1>
-            <ul>
-              <li/> Breakfast Box
-              <li> Lunch Box</li>
-            </ul>
-          </div>
+          {info.menu && (info.menu.length > 0 && info.menu.map(item=>(
+            <Item {...item}/>
+          )))}
           <svg xmlns="http://www.w3.org/2000/svg" width="10" height="500" viewBox="0 0 2 500" fill="none">
           <path d="M1 0V500" stroke="#202020"/>
           </svg> 

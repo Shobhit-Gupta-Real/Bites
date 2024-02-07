@@ -23,4 +23,11 @@ module.exports.foodItemStorage = new CloudinaryStorage({
         allowedFormats: ['jpeg', 'png', 'jpg']
     }
 })
+module.exports.restStorage = new CloudinaryStorage({
+    cloudinary,
+    params:{
+        folder: 'Restaurant',
+        allowedFormats: ['jpeg', 'png', 'jpg']
+    }
+})
 module.exports.cloudinary

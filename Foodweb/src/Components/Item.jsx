@@ -1,12 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function Item({item, des ,img, price, time}) {
+function Item({image, name, description, price, restaurant}) {
   return (
-    <Link to='/done'><div className='item_container'>
-      <img src={img} alt="" />
-      <h1>{item}</h1>
-      <h2>{des}</h2>
+    <div className='item_container'>
+      {image.url && (
+        <img src={image.url} alt="" />
+      )}
+      <h1>{name}</h1>
+      <h2><Link to={`/rest/${restaurant._id}`}>{restaurant.rest}</Link></h2>
       <section className='item_price'>
         <div className="price">
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FC8019" class="w-6 h-6">
@@ -19,7 +21,6 @@ function Item({item, des ,img, price, time}) {
         </div>
 </section>
     </div>
-    </Link>
   )
 }
 

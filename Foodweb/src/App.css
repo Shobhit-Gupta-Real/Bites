@@ -229,6 +229,7 @@ font-weight: 500;
 line-height: normal;
 text-transform: lowercase;
 }
+
 .item_price, .rest_desc_contact{
   display: flex;
   justify-content: space-between;
