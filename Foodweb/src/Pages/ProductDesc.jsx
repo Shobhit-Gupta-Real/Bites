@@ -5,6 +5,8 @@ import MenuList from '../Components/MenuList'
 
 function ProductDesc() {
   const [info, setInfo] = useState({})
+  const [search, setSearch] = useState('')
+  const [list, setList] = useState([])
   const {id} = useParams()
   useEffect(()=>{
    window.scrollTo(0, 0); //to bydefault open the top view of the page
@@ -14,11 +16,21 @@ function ProductDesc() {
     .then(response =>{
         response.json().then(postInfo =>{
             setInfo(postInfo)
+            setList(postInfo.menu)
         })
     })
 },[])
  
-  const [search, setSearch] = useState('')
+  
+  function searching(){
+    for(let i=0;i<list.length;i++){
+      if(list[i].name === search){
+        setList([list[i]])
+        break
+      }
+    }
+  }
+  
   return (
     <div className='product_details'>
         <div className="banner">
@@ -66,7 +78,7 @@ function ProductDesc() {
                 <input type="text" name='' placeholder='Search for dish' 
                 value={search}
                 onChange={(e)=>setSearch(e.target.value)}/>
-                <button>
+                <button onClick={searching}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
 </svg>
@@ -84,7 +96,7 @@ function ProductDesc() {
           <path d="M1 0V500" stroke="#202020"/>
           </svg> 
           <div className="foodlist">
-          {info.menu && (info.menu.length > 0 && info.menu.map(item=>(
+          {list && (list.length > 0 && list.map(item=>(
             <MenuList {...item}/>
           )))}
           </div>
