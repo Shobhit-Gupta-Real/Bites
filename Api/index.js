@@ -67,7 +67,7 @@ app.post('/doner/:id', foodUpload.single('image'), async(req,res)=>{
 app.get('/search/:item/:view', async(req,res)=>{
     const {item, view} = req.params
     if(view === 'food'){
-        const searchDoc = await foodModel.find({name: item})
+        const searchDoc = await foodModel.find({name: item}).populate('restaurant')
         res.json(searchDoc)
     }else{
         const searchDoc = await RestModel.find({rest: item})

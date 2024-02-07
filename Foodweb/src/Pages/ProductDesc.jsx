@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Cart from '../Components/Cart'
 import { useParams } from 'react-router-dom'
+import MenuList from '../Components/MenuList'
 
 function ProductDesc() {
   const [info, setInfo] = useState({})
@@ -82,18 +83,11 @@ function ProductDesc() {
           <svg xmlns="http://www.w3.org/2000/svg" width="10" height="500" viewBox="0 0 2 500" fill="none">
           <path d="M1 0V500" stroke="#202020"/>
           </svg> 
-          <main>
-            <div className="main_details">
-            <h1>Brunch for 2 - Veg (Save upto Rs.45)</h1>
-            <h2>₹599</h2>
-            <p>Brunch: One meal to rule them all! Grab this mega saver combo with your choice of 2 veg wraps, Aloo Paratha (2 pcs),
-               chole and Curd lunchbox and 2 choco lava cakes. This is just bliss on a plate!</p>
-            </div>
-            <div className="add_item">
-              <img src='/food.png' />
-              <button>Add +</button>
-            </div>
-          </main>
+          <div className="foodlist">
+          {info.menu && (info.menu.length > 0 && info.menu.map(item=>(
+            <MenuList {...item}/>
+          )))}
+          </div>
           <Cart/>       
     </div>
     </div>
