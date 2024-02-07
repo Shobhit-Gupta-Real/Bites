@@ -20,6 +20,7 @@ import NearRest from './Components/NearRest'
 import AddFood from './Pages/AddFood'
 import Rest from './Pages/Rest'
 import Item from './Components/Item'
+import SearchResult from './Pages/SearchResult'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout/>}>
           <Route path='' element={<FrontPage/>}/>
+          <Route path='search/:item' element={<SearchResult/>}/>
           <Route path='SignIn' element={<Login/>}/>
           <Route path='SignUp' element={<SignUp/>}/>
           <Route path='profile' element={<Profile/>}/>

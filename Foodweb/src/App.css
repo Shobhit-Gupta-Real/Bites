@@ -510,3 +510,29 @@ top: 40rem;
   width: 2rem;
   height: 2rem;
 }
+.search_result{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+  margin: 2rem 7rem;
+}
+.search_control{
+  display: flex;
+  gap: 1.5rem;
+}
+.search_control button:hover{
+  background-color: #FC8019;
+  color: white;
+}
+.search_content{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.notfound{
+  width: 35rem;
+  border-radius: 10%;
+  display: flex;
+  margin: auto;
+}

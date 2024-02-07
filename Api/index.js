@@ -64,6 +64,16 @@ app.post('/doner/:id', foodUpload.single('image'), async(req,res)=>{
     await restDoc.save() //to make sure that  the pushed data is saved in the database of restaurant
     res.json(foodDoc)
 })
+app.get('/search/:item/:view', async(req,res)=>{
+    const {item, view} = req.params
+    if(view === 'food'){
+        const searchDoc = await foodModel.find({name: item})
+        res.json(searchDoc)
+    }else{
+        const searchDoc = await RestModel.find({rest: item})
+        res.json(searchDoc)
+    }
+})
 app.get('/food', async(req,res)=>{
     const foodDoc = await foodModel.find().populate('restaurant').limit(4)
     res.json(foodDoc)
