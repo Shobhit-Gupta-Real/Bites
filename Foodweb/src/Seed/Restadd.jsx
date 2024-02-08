@@ -20,7 +20,7 @@ function Restadd() {
       e.preventDefault()
       const data = new FormData(); //is creating a new instance of the FormData object in JavaScript.
       data.set('image', dp[0]);
-      data.set('rest', rest);
+      data.set('rest', rest.toLowerCase());
       data.set('variety', variety);
       data.set('address', address);
       data.set('contact', contact);

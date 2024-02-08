@@ -14,7 +14,7 @@ function Foodadd({id}) {
       e.preventDefault()
       const data = new FormData(); //is creating a new instance of the FormData object in JavaScript.
       data.set('image', dp[0]);
-      data.set('food', food);
+      data.set('food', food.toLowerCase());
       data.set('desc', desc);
       data.set('price', price);
 
