@@ -21,6 +21,7 @@ import AddFood from './Pages/AddFood'
 import Rest from './Pages/Rest'
 import Item from './Components/Item'
 import SearchResult from './Pages/SearchResult'
+import Favourites from './Pages/Favourites'
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path='SignIn' element={<Login/>}/>
           <Route path='SignUp' element={<SignUp/>}/>
           <Route path='profile' element={<Profile/>}/>
+          <Route path='favourites/:id' element={<Favourites/>}/>
           <Route path='rest/:id' element={<ProductDesc/>}/>
           <Route path='/addrest' element={<Restadd/>}/>
         </Route>

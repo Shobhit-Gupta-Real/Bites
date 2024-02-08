@@ -14,6 +14,16 @@ const UserSchema = new Schema({
     cover: {
         url: String,
         filename: String
+    },
+    favourites:{
+        food: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'Food_item'
+        }],
+        restaurant: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'restaurant'
+        }]
     }
 })
 
