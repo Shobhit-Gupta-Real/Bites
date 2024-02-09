@@ -14,7 +14,7 @@ function Favourites() {
                 await new Promise(resolve => setTimeout(resolve, 150));
     
                 // Proceed with the fetch after the delay
-                const response = await fetch(`http://localhost:4000/favourites/${id}`, {
+                const response = await fetch(`http://localhost:4000/${id}`, {
                     credentials: 'include'
                 });
      

@@ -21,7 +21,7 @@ function NearRest() {
         <h1>NearBy Restaurant</h1>
         <div className="recommendation_item">
         {restaurant.length > 0 && restaurant.map(rest =>(
-             <Link to={`/rest/${rest._id}`}><Restaurant {...rest}/></Link>
+            <Restaurant {...rest}/>
          ))} 
         </div>
     </div>

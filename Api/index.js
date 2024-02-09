@@ -65,14 +65,6 @@ app.post('/doner/:id', foodUpload.single('image'), async(req,res)=>{
     res.json(foodDoc)
 })
 
-app.get('/favourites/:id', async(req,res)=>{
-    const {id} = req.params
-    const favDoc = await UserModel.findById(id)
-    .populate('favourites.food')
-    .populate('favourites.restaurant')
-    res.json(favDoc)
-})
-
 app.get('/search/:item/:view', async(req,res)=>{
     const {item, view} = req.params
     if(view === 'food'){
@@ -148,11 +140,41 @@ app.post('/addrestu', restUpload.single('image'), async(req,res)=>{ //here the f
     res.status(400).json(e)
 }
 })
+app.post('/:userid/food/:foodid', async(req,res)=>{
+    const {userid, foodid} = req.params
+    const {q} = req.query
+    const userDoc = await UserModel.findById(userid)
+    const foodDoc = await FoodModel.findById(foodid)
+    for(let fav of userDoc.favourites.food){
+        if(fav.equals(foodid)){
+           return res.redirect('/')
+        }
+    }
+    userDoc.favourites.food.push(foodDoc)
+    await userDoc.save()
+    res.redirect('/')
+})
 
+app.post('/:userid/rest/:restid', async(req,res)=>{
+    const {userid, restid} = req.params
+    const {q} = req.query
+    const userDoc = await UserModel.findById(userid)
+    const restDoc = await RestModel.findById(restid)
+    for(let fav of userDoc.favourites.restaurant){
+        if(fav.equals(restid)){
+           return res.redirect('/')
+        }
+    }
+    userDoc.favourites.restaurant.push(restDoc)
+    await userDoc.save()
+    res.redirect('/')
+})
 
 app.get('/:id', async(req,res)=>{
     const {id} = req.params
     const postDoc = await UserModel.findById(id)
+    .populate('favourites.food')
+    .populate('favourites.restaurant')
     res.json(postDoc)
 })
 
