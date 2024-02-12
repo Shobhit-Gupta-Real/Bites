@@ -14,7 +14,7 @@ function Recommend() {
 
   return (
     <div className='recommend_box'>
-      <h1>Personalized recommendations</h1>
+      <h1 className='dark:text-slate-100'>Personalized recommendations</h1>
       <div className='recommendation_item'>
       {food.length > 0 && food.map(item=>(
             <Item {...item}/>

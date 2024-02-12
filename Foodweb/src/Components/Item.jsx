@@ -45,7 +45,7 @@ function Item({_id ,image, name, description, price, restaurant}) {
    })
  }
   return (
-    <div className='item_container'>
+    <div className='item_container dark:bg-slate-100'>
       <div className="img_like">
       {image.url && (
         <img src={image.url} alt="" />

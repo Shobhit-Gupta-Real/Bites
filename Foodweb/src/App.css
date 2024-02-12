@@ -1,6 +1,3 @@
-*{
-  background-color: rgb(253, 252, 251);
-}
 .web{
   display: flex;
   flex-direction: column;
@@ -8,6 +5,7 @@
 }
 body html{
   min-height: 100%;
+  color: #222
 }
 .navbar{
   display: flex;
@@ -321,6 +319,7 @@ text-transform: lowercase;
   justify-content: space-around;
   align-items: center;
   padding: 2rem;
+  border-radius: 20px;
 }
 .banner img, .details, .offers, .offer, .ordering, .value, .value h4{
   background: none;

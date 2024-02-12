@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -22,10 +22,27 @@ import Rest from './Pages/Rest'
 import Item from './Components/Item'
 import SearchResult from './Pages/SearchResult'
 import Favourites from './Pages/Favourites'
+import { ThemeProvider } from './Context/theme'
 
 function App() {
+  const [themeMode, setThemeMode] = useState("light")
+  const lightTheme=()=>{
+    setThemeMode("light"),
+    document.querySelector('body').style.backgroundColor = "white"
+    document.querySelector('html').style.backgroundColor = "white"
+  }
+  const darkTheme=()=>{
+    setThemeMode("dark"),
+    document.querySelector('body').style.backgroundColor = "#222"
+    document.querySelector('html').style.backgroundColor = "#222"
+  }
+  useEffect(()=>{
+    document.querySelector('html').classList.remove("light","dark")
+    document.querySelector('html').classList.add(themeMode)
+  },[themeMode])
   return (
     <>
+    <ThemeProvider value={{themeMode, lightTheme, darkTheme}}>
     <UserContextProvider>
     <LoginContextProvider>
       <Routes>
@@ -46,6 +63,7 @@ function App() {
       </Routes>
     </LoginContextProvider>
     </UserContextProvider>
+    </ThemeProvider>
     </>
   )
 }

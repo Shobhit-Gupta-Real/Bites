@@ -18,7 +18,7 @@ function NearRest() {
 
   return (
     <div className='recommend_box'>
-        <h1>NearBy Restaurant</h1>
+        <h1 className='dark:text-slate-100'>NearBy Restaurant</h1>
         <div className="recommendation_item">
         {restaurant.length > 0 && restaurant.map(rest =>(
             <Restaurant {...rest}/>

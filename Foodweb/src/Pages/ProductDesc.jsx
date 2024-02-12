@@ -32,33 +32,33 @@ function ProductDesc() {
   }
   
   return (
-    <div className='product_details'>
-        <div className="banner">
+    <div className='product_details dark:text-slate-400'>
+        <div className="banner dark:bg-slate-100">
         {info.image && (
           <img src={info.image.url} alt="" />
         )}
                 <section className='details'>
-                    <h1>{info.rest}</h1>
-                    <h2>{info.variety}</h2>
+                    <h1 className='dark:text-black'>{info.rest}</h1>
+                    <h2 className='dark:text-black'>{info.variety}</h2>
                     <div className="ordering">
-                        <section className='value'>
+                        <section className='value dark:text-black'>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="#1AC84B" viewBox="0 0 24 24" stroke-width="1.5" stroke="#1AC84B" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
                     </svg>4.0
                     <h4>100+ ratings</h4>
                         </section>
-                        <img src="/line.svg" alt="" />
+                        <img src="/line.svg" className='dark:bg-black' alt="" />
                         <section className='value'>
-                            <h4>{info.address}</h4>
+                            <h4 className='dark:text-black'>{info.address}</h4>
                         </section>
-                        <img src='/line.svg' alt=''/>
-                        <div className="value">
+                        <img src='/line.svg' alt='' className='dark:bg-black'/>
+                        <div className="value dark:text-black">
                         <h4>+91-{info.contact}</h4>
                         </div>
 
                     </div>
                 </section>
-            <div className="offers">
+            <div className="offers dark:text-black">
             <h1>Offers</h1>
             <div className="offer">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FC8019" class="w-6 h-6">
@@ -93,7 +93,7 @@ function ProductDesc() {
             </ul>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" width="10" height="500" viewBox="0 0 2 500" fill="none">
-          <path d="M1 0V500" stroke="#202020"/>
+          <path d="M1 0V500" stroke="#202020" class="dark:stroke-white"/>
           </svg> 
           <div className="foodlist">
           {list && (list.length > 0 && list.map(item=>(

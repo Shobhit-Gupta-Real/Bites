@@ -49,7 +49,7 @@ async function like(e){
  }
 
   return (
-    <div key={_id} className='rest_item'>
+    <div key={_id} className='rest_item dark:bg-slate-100'>
       <Link to={`/rest/${_id}`}>
         <img src={image.url} alt="" />
         </Link>

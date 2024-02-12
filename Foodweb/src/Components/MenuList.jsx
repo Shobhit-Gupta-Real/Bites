@@ -4,13 +4,13 @@ function MenuList({name, image, description, price}) {
   return (
     <main>
     <div className="main_details">
-            <h1>{name}</h1>
-            <h2>₹{price}</h2>
-            <p>{description}</p>
+            <h1 className='dark:text-white'>{name}</h1>
+            <h2 className='dark:text-slate-100'>₹{price}</h2>
+            <p className='dark:text-slate-300'>{description}</p>
             </div>
             <div className="add_item">
              {image && (<img src={image.url} />)}
-              <button>Add +</button>
+              <button className='dark:text-black'>Add +</button>
     </div>
     </main>
   )
