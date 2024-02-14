@@ -73,7 +73,7 @@ function Profile() {
   }    
   return (
     <form className='profile_page' onSubmit={update}>
-        <h1>Account Settings</h1>
+        <h1 className='dark:text-white'>Account Settings</h1>
         <div className="profile_edit">
         {!dp.cover && (
             <svg xmlns="http://www.w3.org/2000/svg" id='profile_image' fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -87,7 +87,7 @@ function Profile() {
 </svg></label>
         <input type="file" id='input_file' onChange={(e)=>setDpimg(e.target.files)}/>
          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)}/>
-         <button className='funcbtn'>Update</button>
+         <button className='funcbtn dark:bg-white dark:text-black'>Update</button>
         </div>
     </form>
   )

@@ -95,9 +95,34 @@ app.post('/signup', userUpload.single('file'), async(req,res)=>{
     res.status(400).json(e)
 }
 })
-
+app.post('/authup', async(req,res)=>{
+    const {dp ,username, password} = req.body
+    console.log(req.body)
+    const image = {url: dp, filename: "auth"}
+    try{
+        const userDoc = await UserModel.create({
+            username,
+            password: bcrypt.hashSync(password, salt),
+            cover: image
+        })
+        tokensign(username, userDoc._id, req, res);
+    }catch(e){
+        res.status(400).json(e)
+    }
+})
 app.post('/signin', userValid ,async(req,res)=>{
     const {username, password} = req.body
+    const userDoc = await UserModel.findOne({username})
+    const passOk = bcrypt.compareSync(password, userDoc.password)
+    if(passOk){
+        tokensign(username, userDoc._id, req, res);
+    }else{
+        res.status(400).json('Wrong credentials')
+    }
+})
+app.post('/authin', async(req,res)=>{
+    const {username, password} = req.body
+    console.log(req.body)
     const userDoc = await UserModel.findOne({username})
     const passOk = bcrypt.compareSync(password, userDoc.password)
     if(passOk){
