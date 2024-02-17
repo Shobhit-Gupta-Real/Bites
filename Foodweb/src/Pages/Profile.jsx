@@ -24,23 +24,16 @@ function Profile() {
           const userInfo = await response.json();
           setUserInfo(userInfo);
           setUsername(userInfo.username)
+          const data = await fetch(`http://localhost:4000/${userInfo.id}`)
+          const finalval = await data.json()
+          setDp(finalval)
         } catch (error) {
           console.log('Error fetching profile:', error);
         }
       };
     
       fetchData();
-    }, []);
-
-    if(user.id){
-      fetch(`http://localhost:4000/${user.id}`,{
-      credentials: 'include'
-    }).then(response => {
-      response.json().then(postInfo =>{
-        setDp(postInfo)
-      })
-    })
-  }
+    }, [setDp, setUserInfo]);
 
   async function update(ev) {
     ev.preventDefault();
