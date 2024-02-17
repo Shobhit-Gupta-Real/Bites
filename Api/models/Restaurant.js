@@ -14,6 +14,10 @@ const RestSchema = new Schema({
     menu:[{
         type: mongoose.Schema.ObjectId,
         ref: 'Food_item'
+    }],
+    reviews:[{
+        type: mongoose.Schema.ObjectId,
+        ref: 'review'
     }]
 })
 

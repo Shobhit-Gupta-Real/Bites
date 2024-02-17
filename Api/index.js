@@ -22,6 +22,7 @@ const {tokencheck} = require('./middleware')
 const {tokensign} = require('./functions')
 const {userValid} = require('./validation')
 const FoodModel = require('./models/Food_item')
+const ReviewModel = require('./models/Review')
 
 app.use('/uploads', express.static(__dirname+'/uploads'))
 app.use(cors({credentials:true, origin:'http://localhost:5173'}))
@@ -44,11 +45,28 @@ app.post('/update/:id', tokencheck, async(req,res)=>{
     tokensign(username, id, req, res);
 })
 
+app.post('/rest/:id/review/:userid', async(req,res)=>{
+    const {id, userid} = req.params
+    const {star, text} = req.body
+    const restDoc = await RestModel.findById(id)
+    const reviewDoc = await ReviewModel.create({
+        rating: star,
+        review: text,
+        author: userid
+    })
+    restDoc.reviews.push(reviewDoc)
+    await restDoc.save()
+    res.json(reviewDoc)
+})
+
 app.get('/rest/:id', async(req,res)=>{
     const {id} = req.params
-    const restDoc = await RestModel.findById(id).populate('menu')
+    const restDoc = await RestModel.findById(id)
+    .populate('menu')
+    .populate('reviews')
     res.json(restDoc)
 })
+
 app.post('/doner/:id', foodUpload.single('image'), async(req,res)=>{
     const {id} = req.params
     const uploadimg = req.file

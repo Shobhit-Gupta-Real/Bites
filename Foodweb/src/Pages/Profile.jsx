@@ -33,7 +33,7 @@ function Profile() {
       };
     
       fetchData();
-    }, [setDp, setUserInfo]);
+    }, []);
 
   async function update(ev) {
     ev.preventDefault();

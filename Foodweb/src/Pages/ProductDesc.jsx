@@ -2,11 +2,16 @@ import React, { useEffect, useState } from 'react'
 import Cart from '../Components/Cart'
 import { useParams } from 'react-router-dom'
 import MenuList from '../Components/MenuList'
+import Reviews from '../Components/Reviews'
 
 function ProductDesc() {
   const [info, setInfo] = useState({})
   const [search, setSearch] = useState('')
   const [list, setList] = useState([])
+  const [reviewadded, setReviewadded] = useState(true)
+  const action=()=>{
+    setReviewadded(!reviewadded)
+  }
   const {id} = useParams()
   useEffect(()=>{
    window.scrollTo(0, 0); //to bydefault open the top view of the page
@@ -19,7 +24,7 @@ function ProductDesc() {
             setList(postInfo.menu)
         })
     })
-},[])
+},[reviewadded])
  
   
   function searching(){
@@ -37,24 +42,24 @@ function ProductDesc() {
         {info.image && (
           <img src={info.image.url} alt="" />
         )}
-                <section className='details'>
-                    <h1 className='dark:text-black'>{info.rest}</h1>
-                    <h2 className='dark:text-black'>{info.variety}</h2>
-                    <div className="ordering">
-                        <section className='value dark:text-black'>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="#1AC84B" viewBox="0 0 24 24" stroke-width="1.5" stroke="#1AC84B" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                    </svg>4.0
-                    <h4>100+ ratings</h4>
-                        </section>
-                        <img src="/line.svg" className='dark:bg-black' alt="" />
-                        <section className='value'>
-                            <h4 className='dark:text-black'>{info.address}</h4>
-                        </section>
-                        <img src='/line.svg' alt='' className='dark:bg-black'/>
-                        <div className="value dark:text-black">
-                        <h4>+91-{info.contact}</h4>
-                        </div>
+        <section className='details'>
+            <h1 className='dark:text-black'>{info.rest}</h1>
+            <h2 className='dark:text-black'>{info.variety}</h2>
+            <div className="ordering">
+                <section className='value dark:text-black'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#1AC84B" viewBox="0 0 24 24" stroke-width="1.5" stroke="#1AC84B" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+            </svg>4.0
+            <h4>100+ ratings</h4>
+                </section>
+                <img src="/line.svg" className='dark:bg-black' alt="" />
+                <section className='value'>
+                    <h4 className='dark:text-black'>{info.address}</h4>
+                </section>
+                <img src='/line.svg' alt='' className='dark:bg-black'/>
+                <div className="value dark:text-black">
+                <h4>+91-{info.contact}</h4>
+                </div>
 
                     </div>
                 </section>
@@ -100,7 +105,7 @@ function ProductDesc() {
             <MenuList {...item}/>
           )))}
           </div>
-          <Cart/>       
+          <Reviews id={id} reviewList={info.reviews} action={action}/>      
     </div>
     </div>
   )
