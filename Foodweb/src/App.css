@@ -852,3 +852,29 @@ transform: translateY(-1.5rem);
   font-size: 1.25rem;
   padding: 0 0.5rem;
 }
+.review_show{
+  background-color: #ededed;
+  margin: 1rem auto;
+  border: 1px solid rgb(255, 201, 201);
+  padding: 1rem;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.author{
+  display: flex;
+  gap: 10px;
+}
+.author img{
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+.review_show p:last-of-type{
+  width: 12rem;
+}
+.rtoprow{
+  display: flex;
+  justify-content: space-between;
+}

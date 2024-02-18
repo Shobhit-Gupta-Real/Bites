@@ -44,7 +44,14 @@ app.post('/update/:id', tokencheck, async(req,res)=>{
     req.cookies.token = ""
     tokensign(username, id, req, res);
 })
-
+app.post('/:restid/reviewDelete/:id', async(req,res)=>{
+    const {restid, id} = req.params
+    const restDoc = await RestModel.findById(restid)
+    await RestModel.findByIdAndUpdate(restid, {$pull: {reviews: id}})
+    const reviewDoc = await ReviewModel.findByIdAndDelete(id)
+    await restDoc.save()
+    res.json('ok')
+})
 app.post('/rest/:id/review/:userid', async(req,res)=>{
     const {id, userid} = req.params
     const {star, text} = req.body
@@ -63,7 +70,14 @@ app.get('/rest/:id', async(req,res)=>{
     const {id} = req.params
     const restDoc = await RestModel.findById(id)
     .populate('menu')
-    .populate('reviews')
+    .populate({
+        path: 'reviews',
+        populate:{
+            path: 'author',
+            model: 'user'
+        }
+    })
+    
     res.json(restDoc)
 })
 
